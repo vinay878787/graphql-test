@@ -1,9 +1,9 @@
 import "dotenv/config";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { typeDefs } from "./src/schema/type-def.js";
-import { resolvers } from "./src/schema/resolvers.js";
-import { verifyJwt } from "./src/utils/helper-functions/auth.js";
+import { typeDefs } from "./schema/type-def.js";
+import { resolvers } from "./schema/resolvers.js";
+import { verifyJwt } from "./utils/helper-functions/auth.js";
 
 const server = new ApolloServer({
   typeDefs,
@@ -23,4 +23,4 @@ const { url } = await startStandaloneServer(server, {
   },
 });
 
-console.log(`🚀  Server ready at: ${url}`);
+console.log(` Server ready at: ${url}`);

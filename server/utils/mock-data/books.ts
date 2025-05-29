@@ -29,4 +29,10 @@ export const books = [
     rating: "good",
     year: 1960,
   },
+  {
+    title: "The Barrel",
+    author: "Albert Camus",
+    rating: "good",
+    year: 1940,
+  },
 ];

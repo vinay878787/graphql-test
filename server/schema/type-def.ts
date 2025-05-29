@@ -13,7 +13,12 @@ export const typeDefs = `#graphql
   }
 
   type Query {
-    books: [Book]
+    books(
+      author: String
+      rating: Rating
+      sortBy: String
+      sortOrder: String
+    ): [Book]
   }
 
   type Mutation {
