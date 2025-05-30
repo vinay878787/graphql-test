@@ -1,54 +1,50 @@
-# React + TypeScript + Vite
+# Book Listing Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a React-based frontend for a book listing application, built using Vite, Apollo Client, and Tailwind CSS. It allows users to view, filter, and sort a list of books fetched from a GraphQL API. Authentication is handled using cookies.
 
-Currently, two official plugins are available:
+🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔐 Authentication – Secure login with cookies (HTTP-only JWT).
 
-## Expanding the ESLint configuration
+📖 Book Listing – View a list of books with title, author, year, and rating.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+🔍 Filtering & Sorting – Filter by author or rating, sort by title or year.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+💡 Clean UI – Built with reusable components using Tailwind CSS.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+⚡ Fast & Lightweight – Powered by Vite and Apollo Client.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+📦 Tech Stack
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+React + TypeScript
+Vite – Next-generation frontend tooling
+Apollo Client – GraphQL state management
+Tailwind CSS – Utility-first styling
+GraphQL – For efficient data queries
+
+🔐 Authentication Flow
+On login, the backend sets a secure HTTP-only cookie containing the JWT.
+
+Apollo Client sends this cookie with each GraphQL request.
+
+The backend validates the cookie to authenticate requests.
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/vinay878787/graphql-test.git
+   cd client
+
+2. npm install # or yarn install
+
+3. Create a .env file in the root directory (if it doesn't exist).
+
+Add the following environment variable:
+VITE_GRAPHQL_URL=http://localhost:4000/graphql
+
+4.npm run dev # or yarn dev
+5.npm run build # or yarn build
+
+
