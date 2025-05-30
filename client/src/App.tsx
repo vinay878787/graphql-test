@@ -1,14 +1,7 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery} from "@apollo/client";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
-
-const AUTH_CHECK_QUERY = gql`
-  query {
-    books {
-      title
-    }
-  }
-`;
+import { AUTH_CHECK_QUERY } from "./constants/constant";
 
 export const App = () => {
   const { loading, error } = useQuery(AUTH_CHECK_QUERY, {

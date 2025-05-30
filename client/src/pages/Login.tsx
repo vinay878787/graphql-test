@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { gql, useMutation } from '@apollo/client';
-
-const LOGIN_DATA = gql`
-  mutation Mutation($email: String!, $password: String!) {
-    login(email: $email, password: $password)
-  }
-`;
+import {useMutation } from '@apollo/client';
+import { LOGIN_DATA } from '../constants/constant';
 
 export const Login: React.FC = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -69,7 +64,7 @@ export const Login: React.FC = () => {
             type="email"
             name="email"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-            value={formData.email}
+            value={formData?.email}
             onChange={handleChange}
             placeholder="you@example.com"
             required
@@ -85,7 +80,7 @@ export const Login: React.FC = () => {
             type="password"
             name="password"
             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-            value={formData.password}
+            value={formData?.password}
             onChange={handleChange}
             placeholder="••••••••"
             required
