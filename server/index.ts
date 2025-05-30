@@ -3,6 +3,7 @@ import { ApolloServer } from "@apollo/server";
 import { typeDefs } from "./schema/type-def.js";
 import { resolvers } from "./schema/resolvers.js";
 import { verifyJwt } from "./utils/helper-functions/auth.js";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import { expressMiddleware } from "@as-integrations/express5";
@@ -20,6 +21,7 @@ const server = new ApolloServer({
 
 await server.start();
 
+app.use(cookieParser());
 app.use(
   "/graphql",
   cors<cors.CorsRequest>({
@@ -28,14 +30,14 @@ app.use(
   }),
   express.json(),
   expressMiddleware(server, {
-    context: async ({ req }) => {
-      const authHeader = req.headers.authorization || "";
+    context: async ({ req, res }) => {
+      // Read token from cookie
+      const token = req.cookies?.token;
       let user = null;
-      if (authHeader.startsWith("Bearer ")) {
-        const token = authHeader.replace("Bearer ", "");
+      if (token) {
         user = verifyJwt(token);
       }
-      return { user };
+      return { user, res };
     },
   })
 );

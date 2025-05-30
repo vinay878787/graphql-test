@@ -14,10 +14,10 @@ export const Login: React.FC = () => {
   const [postLoginFormData, { data, loading, error: mutationError }] = useMutation(LOGIN_DATA);
 
   useEffect(() => {
-    if (data && data.login) {
-      localStorage.setItem('token', data.login);
-      setSuccess('Login successful!');
+    if (data && data.login === "success") {
+      setSuccess('Login successful! Please wait...');
       setError('');
+      setTimeout(() => window.location.reload(), 1000);
     }
   }, [data]);
 

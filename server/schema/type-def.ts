@@ -23,5 +23,6 @@ export const typeDefs = `#graphql
 
   type Mutation {
     login(email: String!, password: String!): String!
+    logout:String!
   }
 `;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 
 const BOOKS_QUERY = gql`
   query Books(
@@ -30,6 +30,12 @@ const ALL_AUTHORS_QUERY = gql`
   }
 `;
 
+const LOGOUT_MUTATION = gql`
+  mutation {
+    logout
+  }
+`;
+
 const RATINGS = ["good", "bad", "ugly"] as const;
 const SORT_FIELDS = [
   { label: "Year", value: "year" },
@@ -57,9 +63,16 @@ export const Home: React.FC = () => {
       ? Array.from(new Set(allAuthorsData.books.map((book: any) => book.author)))
       : [];
 
+  const [logout] = useMutation(LOGOUT_MUTATION);
+
   const handleFilter = (e: React.FormEvent) => {
     e.preventDefault();
     refetch({ author, rating, sortBy, sortOrder });
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    window.location.reload();
   };
 
   return (
@@ -68,7 +81,7 @@ export const Home: React.FC = () => {
         <h1 className="text-2xl font-bold mb-4">Book List</h1>
         <button
           className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded cursor-pointer"
-          onClick={() => localStorage.removeItem("token")}
+          onClick={handleLogout}
         >
           logout
         </button>

@@ -1,7 +1,7 @@
 import { requireAuth, signJwt } from "../utils/helper-functions/auth.js";
 import { books } from "../utils/mock-data/books.js";
 import { users } from "../utils/mock-data/users.js";
-
+import type { Response } from "express";
 
 export const resolvers = {
   Query: {
@@ -34,10 +34,23 @@ export const resolvers = {
     ),
   },
   Mutation: {
-    login: (_parent: any, { email, password }: any) => {
+    login: async (_parent: any, { email, password }: any, { res }: { res: Response }) => {
       const user = users.find(u => u.email === email && u.password === password);
       if (!user) throw new Error("Invalid credentials");
-      return signJwt({ name: user.name, email: user.email });
+      const token = signJwt({ name: user.name, email: user.email });
+
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      });
+
+      return "success";
+    },
+    logout: (_parent: any, _args: any, { res }: { res: Response }) => {
+      res.clearCookie("token");
+      return "logged out";
     },
   },
 };
