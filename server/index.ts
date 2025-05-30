@@ -12,6 +12,7 @@ import http from "http";
 
 const app = express();
 const httpServer = http.createServer(app);
+const CORS_ORIGIN = process.env.CORS_ORIGIN;
 
 const server = new ApolloServer({
   typeDefs,
@@ -25,13 +26,12 @@ app.use(cookieParser());
 app.use(
   "/graphql",
   cors<cors.CorsRequest>({
-    origin: ["http://localhost:3000"],
+    origin: [CORS_ORIGIN],
     credentials: true,
   }),
   express.json(),
   expressMiddleware(server, {
     context: async ({ req, res }) => {
-      // Read token from cookie
       const token = req.cookies?.token;
       let user = null;
       if (token) {
@@ -42,7 +42,9 @@ app.use(
   })
 );
 
+const PORT = process.env.PORT || 4000;
+
 await new Promise<void>((resolve) =>
-  httpServer.listen({ port: 4000 }, resolve)
+  httpServer.listen({ port: PORT }, resolve)
 );
-console.log(`Server ready at http://localhost:4000/graphql`);
+console.log(`Server ready at http://localhost:${PORT}/graphql`);
